@@ -127,4 +127,63 @@ All five manual functional tests passed.
 
 The results demonstrate that the application's core user-facing features, including input validation, language selection, AI-generated analysis, and character limits, behaved as expected during this test session.
 
-Additional automated and error-handling tests would improve confidence in the application's reliability.
+## 6. Automated Unit Testing
+
+Automated unit tests were implemented using Python's built-in `unittest` framework.
+
+The tests verify the reusable `is_valid_bug_description()` function in `validation.py`.
+
+### Automated Test Cases
+
+| Test | Description | Result |
+|---|---|---|
+| test_empty_description | Rejects empty strings | PASS |
+| test_whitespace_only | Rejects whitespace-only strings | PASS |
+| test_valid_description | Accepts valid bug descriptions | PASS |
+| test_description_with_surrounding_spaces | Accepts descriptions with surrounding spaces | PASS |
+| test_none_input | Rejects None values | PASS |
+| test_numeric_input | Rejects numeric input | PASS |
+| test_newlines_and_tabs | Rejects strings containing only newlines and tabs | PASS |
+
+### Testing Environment
+
+- Framework: Python unittest
+- Python Version: 3.11
+- Automation Platform: GitHub Actions
+- Operating System: Ubuntu (GitHub-hosted runner)
+- Execution Date: November 18, 2026
+- Workflow: `.github/workflows/python-tests.yml`
+
+### Execution Results
+
+The GitHub Actions workflow successfully discovered and executed all seven tests.
+
+```text
+Ran 7 tests in 0.000s
+
+OK
+```
+
+**Total Automated Tests:** 7
+
+**Passed:** 7
+
+**Failed:** 0
+
+**Pass Rate:** 100%
+
+### Continuous Integration
+
+GitHub Actions was configured to execute automated tests when changes are pushed to the repository, when pull requests are opened or updated, and when the workflow is manually triggered.
+
+The workflow completed successfully during both its initial automatic execution and a subsequent manual execution.
+
+### Testing Limitations
+
+The automated tests currently cover the input-validation function only. They do not test Gemini API communication, Streamlit interface behavior, or API error handling.
+
+### Conclusion
+
+The seven automated unit tests passed successfully, confirming that the input-validation function behaves as expected for the tested inputs.
+
+Combined with the five previously completed manual functional tests, the project now has 12 passing test cases across two testing approaches.
