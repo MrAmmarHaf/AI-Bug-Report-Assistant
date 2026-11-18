@@ -106,6 +106,20 @@ The application can provide guidance about out-of-bounds array access, possible 
 
 The exact response may vary because the analysis is AI-generated.
 
+## Application Screenshots
+
+### Bug Submission and AI Analysis
+
+The user enters a C++ bug description, selects the programming language, and receives AI-generated debugging guidance.
+
+![Bug submission and AI analysis](Screenshot1(1).png)
+
+### Possible Causes and Debugging Steps
+
+The application identifies possible causes and recommends debugging techniques, including debuggers and AddressSanitizer.
+
+![AI debugging recommendations](Screenshot2(1).png)
+
 ## 7. Testing and Validation
 
 The application has been manually tested using programming bug descriptions.
