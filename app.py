@@ -1,6 +1,6 @@
-
 import streamlit as st
 from google import genai
+from validation import is_valid_bug_description
 
 st.set_page_config(
     page_title="AI Bug Report Assistant",
@@ -27,7 +27,7 @@ programming_language = st.selectbox(
 )
 
 if st.button("Analyze Bug"):
-    if not bug_description.strip():
+    if not is_valid_bug_description(bug_description):
         st.warning("Please describe the bug first.")
     else:
         prompt = f"""
