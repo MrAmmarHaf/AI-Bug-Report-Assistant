@@ -54,11 +54,20 @@ code if it has not been provided. If the cause is
 uncertain, explain what should be checked first.
 """
 
+       
         try:
             with st.spinner("Analyzing your bug..."):
-                client = genai.Client(
-                    api_key=st.secrets["GEMINI_API_KEY"]
-                )
+                api_key = st.secrets.get("GEMINI_API_KEY")
+
+                if not api_key:
+                    st.error(
+                        "Gemini API key is missing. "
+                        "Please configure GEMINI_API_KEY "
+                        "in your Streamlit secrets."
+                    )
+                    st.stop()
+
+                client = genai.Client(api_key=api_key)
 
                 response = client.models.generate_content(
                     model="gemini-3.5-flash-lite",
@@ -74,7 +83,6 @@ uncertain, explain what should be checked first.
                     "Please try again."
                 )
 
-       
         except Exception as error:
             st.error(
                 "Gemini request failed. "
@@ -84,4 +92,5 @@ uncertain, explain what should be checked first.
                 f"Gemini API error: {type(error).__name__}: {error}",
                 flush=True
             )
+
 
