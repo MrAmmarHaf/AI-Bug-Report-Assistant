@@ -112,13 +112,13 @@ The exact response may vary because the analysis is AI-generated.
 
 The user enters a C++ bug description, selects the programming language, and receives AI-generated debugging guidance.
 
-![Bug submission and AI analysis](Screenshot1(1).png)
+![Bug submission and AI analysis](Screenshot1.png)
 
 ### Possible Causes and Debugging Steps
 
 The application identifies possible causes and recommends debugging techniques, including debuggers and AddressSanitizer.
 
-![AI debugging recommendations](Screenshot2(1).png)
+![AI debugging recommendations](Screenshot2.png)
 
 ## 7. Testing and Validation
 
