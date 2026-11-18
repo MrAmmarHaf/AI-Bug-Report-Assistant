@@ -57,7 +57,10 @@ uncertain, explain what should be checked first.
        
         try:
             with st.spinner("Analyzing your bug..."):
-                api_key = st.secrets.get("GEMINI_API_KEY")
+                try:
+                    api_key = st.secrets.get("GEMINI_API_KEY")
+                except (FileNotFoundError, KeyError, st.errors.StreamlitSecretNotFoundError):
+                    api_key = None
 
                 if not api_key:
                     st.error(
