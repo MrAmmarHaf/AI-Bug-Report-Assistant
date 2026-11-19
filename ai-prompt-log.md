@@ -311,3 +311,234 @@ The key is not included in the public source code or project documentation.
 **Live Application:** https://mrammarhaf-ai-bug-assistant.streamlit.app/
 
 **Original Portfolio:** https://mrammarhaf.github.io/github-portfolio/
+
+---
+
+# Part 6 — Detailed AI Prompt and Response Records
+
+This section provides ten detailed examples of actual ChatGPT interactions during the AI Bug Report Assistant's development and documentation.
+
+The prompts are reproduced from the development conversation. AI response excerpts are shortened where appropriate and are labeled accordingly. Student refinements and implementation outcomes are documented separately.
+
+## Interaction 1 — Reviewing the Application Source Code
+
+**AI Tool:** ChatGPT
+
+**Prompt Submitted:** I submitted the complete Python source code for my AI Bug Report Assistant, including its Streamlit interface, programming language selection, Gemini API integration, and error handling.
+
+**AI-Generated Response (excerpt):**
+
+"Your application currently supports:
+
+- Five programming language selections: C++, Python, Java, JavaScript, and Other.
+- Bug descriptions up to 3,000 characters.
+- Input validation to prevent empty submissions.
+- Google Gemini integration for AI-powered debugging suggestions."
+
+**Student Modifications or Refinements:** I used the code review to ensure the software documentation reflected the application's actual functionality rather than features that had not been implemented.
+
+**Final Implementation Result:** Created `requirements.md` documenting the application's functional requirements, non-functional requirements, assumptions, scope, and limitations.
+
+## Interaction 2 — Verifying the Deployed Application
+
+**AI Tool:** ChatGPT
+
+**Actual Prompt:**
+
+"yeah I just tried it. At first it asked me to wake up the application. I clicked the button and it was 'in the oven' for a minute and then it took me to the official main page of it. I tried testing with my program keeps crashing and it replied so yes its working."
+
+**AI-Generated Response (excerpt):**
+
+"That confirms your AI Bug Report Assistant is deployed and functioning correctly."
+
+ChatGPT explained that Streamlit applications may enter a sleep state after inactivity and guided the creation of a more complete README.
+
+**Student Modifications or Refinements:** I verified that the deployed application could accept a bug description and return an AI-generated response.
+
+**Final Implementation Result:** Updated `README.md` with installation instructions, usage guidance, features, technology information, and limitations.
+
+## Interaction 3 — Reporting Manual Testing Results
+
+**AI Tool:** ChatGPT
+
+**Actual Prompt:**
+
+"I completed the five AI Bug Report Assistant manual tests. Results: Empty description: pass; Whitespace-only description: pass; Valid C++ bug: pass; Language selection: pass; Input length: pass. Let's document the results and continue."
+
+**AI-Generated Response (excerpt):**
+
+"All five manual tests passed. That gives us documented evidence that the application's core functionality is working."
+
+ChatGPT prepared testing documentation containing objectives, steps, expected results, actual results, and testing limitations.
+
+**Student Modifications or Refinements:** I manually executed the five test cases in the deployed application and reported the observed results.
+
+**Final Implementation Result:** Created `TESTING.md` with five passing manual functional tests.
+
+## Interaction 4 — Correcting Python Indentation
+
+**AI Tool:** ChatGPT
+
+**Prompt Submitted:** I pasted an updated version of `app.py` and asked, "like this", after adding API key validation code.
+
+**AI-Generated Response (excerpt):**
+
+"Almost! You're very close. The only issue is Python indentation."
+
+ChatGPT explained that the new API key validation statements needed to remain inside the `with st.spinner(...)` block.
+
+**Student Modifications or Refinements:** I corrected the indentation and resubmitted the Python source code for review.
+
+**Final Implementation Result:** Updated `app.py` with properly indented API key validation and committed the change.
+
+## Interaction 5 — Reviewing Missing Secrets Error Handling
+
+**AI Tool:** ChatGPT
+
+**Actual Prompt (excerpt):**
+
+```python
+try:
+    api_key = st.secrets.get("GEMINI_API_KEY")
+except (FileNotFoundError, KeyError):
+    api_key = None
+```
+
+"like this?"
+
+**AI-Generated Response (excerpt):**
+
+"Your indentation is correct, and you've placed the new try/except block in the right location."
+
+ChatGPT recommended adding `st.errors.StreamlitSecretNotFoundError` to the exception handling.
+
+**Student Modifications or Refinements:** I changed the exception handler to:
+
+```python
+except (FileNotFoundError, KeyError, st.errors.StreamlitSecretNotFoundError):
+    api_key = None
+```
+
+**Final Implementation Result:** Committed improved handling for missing Streamlit secrets configurations.
+
+## Interaction 6 — Creating a Reusable Validation Function
+
+**AI Tool:** ChatGPT
+
+**Actual Prompt:** "ok committed"
+
+This was a continuation after committing the previous error-handling improvement.
+
+**AI-Generated Response (excerpt):**
+
+"We'll start with a small improvement: moving your input-validation logic into a reusable function."
+
+ChatGPT provided the following implementation:
+
+```python
+def is_valid_bug_description(description):
+    """Return True if the description contains non-whitespace text."""
+    return isinstance(description, str) and bool(description.strip())
+```
+
+**Student Modifications or Refinements:** I created `validation.py` and subsequently modified `app.py` to import and use `is_valid_bug_description()`.
+
+**Final Implementation Result:** The application's input-validation logic was separated into a reusable, independently testable Python module.
+
+## Interaction 7 — Developing Automated Unit Tests
+
+**AI Tool:** ChatGPT
+
+**Actual Prompt:** "ok committed lets continue"
+
+This prompt followed the integration of the validation function into `app.py`.
+
+**AI-Generated Response (excerpt):**
+
+"We're now ready to add automated unit tests, which will give your professor evidence that you've gone beyond simply building an application."
+
+ChatGPT provided seven tests using Python's `unittest` framework, including:
+
+```python
+def test_empty_description(self):
+    self.assertFalse(is_valid_bug_description(""))
+
+def test_valid_description(self):
+    self.assertTrue(
+        is_valid_bug_description("My C++ program crashes.")
+    )
+```
+
+**Student Modifications or Refinements:** I created `test_validation.py` and added the seven test cases.
+
+**Final Implementation Result:** Added automated tests covering valid descriptions, empty input, whitespace, surrounding spaces, non-string input, and newline/tab characters.
+
+## Interaction 8 — Configuring GitHub Actions
+
+**AI Tool:** ChatGPT
+
+**Actual Prompt:** "ok committed"
+
+This prompt followed the creation of `test_validation.py`.
+
+**AI-Generated Response (excerpt):**
+
+"GitHub Actions lets GitHub automatically execute your Python tests whenever you push changes to your repository."
+
+ChatGPT generated a workflow using `actions/checkout@v4`, `actions/setup-python@v5`, and the command:
+
+```bash
+python -m unittest discover -v
+```
+
+**Student Modifications or Refinements:** I created `.github/workflows/python-tests.yml` using GitHub's web interface and manually triggered an additional workflow run.
+
+**Final Implementation Result:** Configured continuous integration to execute the validation tests automatically on pushes and pull requests, with an option for manual execution.
+
+## Interaction 9 — Verifying Automated Test Execution
+
+**AI Tool:** ChatGPT
+
+**Prompt Submitted:** I uploaded screenshots of the GitHub Actions workflow and its execution logs.
+
+**AI-Generated Response (excerpt):**
+
+"Your screenshot confirms that all seven automated unit tests passed successfully!"
+
+ChatGPT identified the test output:
+
+```text
+Ran 7 tests in 0.000s
+
+OK
+```
+
+**Student Modifications or Refinements:** I opened the GitHub Actions job logs and verified that each of the seven tests reported `ok`.
+
+**Final Implementation Result:** Updated `TESTING.md` to document the seven passing automated tests and the successful GitHub Actions workflow.
+
+## Interaction 10 — Troubleshooting README Screenshot Paths
+
+**AI Tool:** ChatGPT
+
+**Prompt Submitted:** I uploaded screenshots showing that the images in my GitHub README were not displaying correctly. One screenshot showed a GitHub 404 error.
+
+**AI-Generated Response (excerpt):**
+
+"I see the problem! Your screenshots uploaded successfully, but the filenames in your README don't match the actual filenames on GitHub."
+
+ChatGPT identified the mismatch between the README references and the uploaded image filenames.
+
+**Student Modifications or Refinements:** I changed the Markdown image paths from `Screenshot1(1).png` and `Screenshot2(1).png` to the actual repository filenames.
+
+**Final Implementation Result:** Both application demonstration screenshots displayed correctly in `README.md`.
+
+---
+
+## Detailed Interaction Summary
+
+These ten records demonstrate how ChatGPT was used for software requirements analysis, documentation, debugging, input validation, code modularization, automated testing, continuous integration, and troubleshooting.
+
+The development process involved reviewing AI-generated suggestions, modifying source code, testing the application, examining results, and committing verified improvements to GitHub.
+
+The original development activities and additional AI-assisted work are documented in Parts 1–5 of this log.
